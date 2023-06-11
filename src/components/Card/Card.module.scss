@@ -1,0 +1,55 @@
+.Card{
+   background-color: #FFF;
+   width: 502px;
+   height: 184px;
+   box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+   border-radius: 5px;
+}
+
+.header-Card{
+
+   width: 502px;
+   display: flex;
+   justify-content: space-between;
+}
+
+.Card-price{
+   color: #2196F3;
+   font-size: 24px;
+   line-height: 24px;
+   font-weight: 600;
+   margin-top: 26px;
+   margin-left: 20px;
+}
+
+.Card-logo{
+   margin-top: 20px;
+   margin-right: 20px;
+}
+
+.inner-card-wrap{
+   display: flex;
+   width: 463px;
+   justify-content: space-around;
+   margin-left: 20px;
+   margin-top: 20px;
+   margin-bottom: 10px;
+}
+
+.Card-wrap{
+   width: 141px;
+   height: 39px;
+}
+
+.Card-wrap-header{
+   
+   color:#A0B0B9;
+   font-size: 12px;
+   line-height: 18px;
+}
+
+.Card-wrap-bottom{
+   color: #4A4A4A;
+   font-size: 14px;
+   line-height: 21px;
+}
