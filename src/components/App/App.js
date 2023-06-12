@@ -13,6 +13,7 @@ function App() {
         <div>
           <Navigation/>
           <Tickets/>
+          <button className={classes['toggle-button']}>Показать ещё 5 билетов</button>
         </div>
       </div>
     </div>
