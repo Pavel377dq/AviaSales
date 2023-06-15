@@ -1,4 +1,5 @@
-const reducerSort = (state = 'nothing', action) => {
+/* eslint-disable default-case */
+/*const reducerSort = (state = 'nothing', action) => {
 
 
 
@@ -15,102 +16,156 @@ const reducerSort = (state = 'nothing', action) => {
       case 'transferThree':
          return
    }
-}
+}*/
 
-const reducerCheckbox = (state =  [
-{checkBox:'all', isChecked: true},{checkBox:'NoTransfer', isChecked: false},
+export const  reducer = (state =  {arr:[
+{checkBox:'all', isChecked: false},{checkBox:'NoTransfer', isChecked: false},
 {checkBox:'TransferOne', isChecked: false},
 {checkBox:'TransferTwo', isChecked: false},
-{checkBox:'TransferThree', isChecked: false}], action) => {
-
+{checkBox:'TransferThree', isChecked: false}]}, action) =>{
+   console.log('ok')
 
 //reducer должен вернуть новый стейт?
    switch(action.type){
 
-      case 'markAll': {
-         if(state[0].isChecked){//галочка стоит
-            const newState = state.map((checkbox)=>{
+      case 'markAllOn': {
+         console.log('1')
+            const newStateArr = state.arr.map((checkbox)=>{
 
                return {
                   ...checkbox,
                   isChecked: true
                }
             });
-            return newState;
+            return {arr:newStateArr};
       }
-      else{//галочки нет
-         const newState = state.map((checkbox)=>{
+      case 'markAllOff':{
+         console.log('2')
+         const newStateArr = state.arr.map((checkbox)=>{
 
             return {
                ...checkbox,
                isChecked: false
             }
          });
-         return newState;
+         return {arr:newStateArr};
+         
       }
-      break;
-      }//выполнить action вернуть состояние all итд, но как проверить что переданное состояние не all иначе цикл
-       return 
-      case 'markNoTransfer':{
-
-         if(!state[1].isChecked){//возможно сделать еще зависимость от параметров вкл выкл НУЖНА ЗАВИСИМОСТЬ ИНАЧЕ НЕ ПОМЕНЯТЬ state!! Предыдущий стейт? настоящий стейт? прочитать
+      case 'markNoTransferOn':{
+     
             
-            const newState = [...state];
-            newState[0].isChecked = false;
-            return newState;
+         const newStateArr = [...state.arr];
+         newStateArr[1].isChecked = true;
+        
+
+         let isAllOn = newStateArr.every((checkBox,idx)=>{ if(idx===0){
+            return true;
          }
-         else{
-            const newState = [...state];
-            newState[1].isChecked = true;//запуститься ли здесь бесконечный цикл?
-            return newState;
-         }
-         break;
+         return checkBox.isChecked;
+      })
+
+
+         newStateArr[0].isChecked = isAllOn;
+         
+         return {arr: newStateArr};
+          
+      }
+
+      case 'markNoTransferOff':{
+         
+         
+         const newStateArr = [...state.arr];
+         newStateArr[0].isChecked = state.arr[0].isChecked ? !state.arr[0].isChecked: state.arr[0].isChecked;
+         newStateArr[1].isChecked = false;
+
+         return {arr:newStateArr};
       }
           
-      case 'markTransferOne': {
-      
-      if(!state[2].isChecked){
-            
-         const newState = [...state];
-         newState[0].isChecked = false;
-         return newState;
-      }
-      else{
-         const newState = [...state];
-         newState[2].isChecked = true;//запуститься ли здесь бесконечный цикл?
-         return newState;
-      }
-      break;
+      case 'markOneTransferOn': {
+              
+         const newStateArr = [...state.arr];
+         newStateArr[2].isChecked = true;
+        
+
+         let isAllOn = newStateArr.every((checkBox,idx)=>{ if(idx===0){
+            return true;
+         }
+         return checkBox.isChecked;
+      })
+
+
+         newStateArr[0].isChecked = isAllOn;
+         
+         return {arr: newStateArr};
    }
-      case 'markTransferTwo':{
+      case 'markOneTransferOff':{
       
-            if(!state[3].isChecked){
-                  
-               const newState = [...state];
-               newState[0].isChecked = false;
-               return newState;
-            }
-            else{
-               const newState = [...state];
-               newState[3].isChecked = true;//запуститься ли здесь бесконечный цикл?
-               return newState;
-            }
-            break;
+         const newStateArr = [...state.arr];
+         newStateArr[0].isChecked = state.arr[0].isChecked ? !state.arr[0].isChecked: state.arr[0].isChecked;
+         newStateArr[2].isChecked = false;
+
+         return {arr:newStateArr};
+          
+      }
+      case 'markTransferTwoOn':{
+              
+         const newStateArr = [...state.arr];
+         newStateArr[3].isChecked = true;
+        
+
+         let isAllOn = newStateArr.every((checkBox,idx)=>{ if(idx===0){
+            return true;
          }
-      case 'markTransferThree':{
-      
-         if(!state[4].isChecked){
-               
-            const newState = [...state];
-            newState[0].isChecked = false;
-            return newState;
+         return checkBox.isChecked;
+      })
+
+
+         newStateArr[0].isChecked = isAllOn;
+         
+         return {arr: newStateArr};
+         
+      }
+      case 'markTransferTwoOff':{
+         
+         const newStateArr = [...state.arr];
+         newStateArr[0].isChecked = state.arr[0].isChecked ? !state.arr[0].isChecked: state.arr[0].isChecked;
+         newStateArr[3].isChecked = false;
+
+         return {arr:newStateArr};
+
+      }
+      case 'markTransferThreeOn':{
+             
+         const newStateArr = [...state.arr];
+         newStateArr[4].isChecked = true;
+        
+
+         let isAllOn = newStateArr.every((checkBox,idx)=>{ if(idx===0){
+            return true;
          }
-         else{
-            const newState = [...state];
-            newState[4].isChecked = true;//запуститься ли здесь бесконечный цикл?
-            return newState;
+         return checkBox.isChecked;
+      })
+
+
+         newStateArr[0].isChecked = isAllOn;
+         
+         return {arr: newStateArr};
+         
+      }
+      case 'markTransferThreeOff':{
+    
+         const newStateArr = [...state.arr];
+         newStateArr[0].isChecked = state.arr[0].isChecked ? !state.arr[0].isChecked: state.arr[0].isChecked;
+         newStateArr[4].isChecked = false;
+
+         return {arr:newStateArr};
+
+      }
+      default: {
+         console.log('default');
+         return {
+           ...state
          }
-         break;
       }
    }
 }
