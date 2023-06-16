@@ -3,8 +3,17 @@ import Tickets from '../Tickets/Tickets';
 import Navigation from '../Navigation/Navigation';
 import logoAviaSales from './imgLogo/AviaSalesLogo.png'
 import Filters from '../Filters/Filters';
+import { useEffect } from 'react';
+import * as actions from '../../actions'
+import { connect } from "react-redux";
 
-function App() {
+function App({state,loadData}) {
+
+  useEffect(()=>loadData(),[]);
+
+  const {tickets} = state;
+
+
   return (
     <div className="App">
       <img className={classes.logo} src={logoAviaSales} alt='Логотип компаниии aviasales' />
@@ -12,7 +21,7 @@ function App() {
         <Filters/>
         <div>
           <Navigation/>
-          <Tickets/>
+          <Tickets data={tickets}/>
           <button className={classes['toggle-button']}>Показать ещё 5 билетов</button>
         </div>
       </div>
@@ -20,4 +29,10 @@ function App() {
   );
 }
 
-export default App;
+const mapStateToProps = (state)=>{
+
+  return {state:state}
+  
+}
+
+export default connect(mapStateToProps,actions)(App);

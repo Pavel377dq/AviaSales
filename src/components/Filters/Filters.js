@@ -1,23 +1,34 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React from "react";
 import classes from "./Filters.module.scss";
 import { connect } from "react-redux";
 import * as actions from '../../actions'
 const Filters = ({
   state,
-  doAllOn,
-  doAllOff,
-  doNoTransferOn,
-  doNoTransferOff,
-  doOneTransferOn,
-  doOneTransferOff,
-  doTransferTwoOn,
-  doTransferTwoOff,
-  doTransferThreeOff,
-  doTransferThreeOn
+ doAllOn,
+
+doAllOff,
+
+doNoTransferOn,
+
+doNoTransferOff ,
+
+ doOneTransferOn,
+
+doOneTransferOff ,
+
+doTransferTwoOn ,
+
+doTransferTwoOff ,
+
+ doTransferThreeOff ,
+doTransferThreeOn 
 })=> {
   console.log(state)
 
-  const {arr} =state
+  const {checkboxes} =state;
+  const {arr} = checkboxes;
+  
   return (
 
 
@@ -94,10 +105,12 @@ const Filters = ({
     </div>
     3 пересадки
   </div>
+
 </aside>
+
   );
 }
-
+//<div>{JSON.stringify(state.data)}</div>
 const mapStateToProps = (state)=>{
 
    return {state:state}
