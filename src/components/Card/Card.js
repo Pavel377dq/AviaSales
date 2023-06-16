@@ -22,7 +22,7 @@ export default function Card({price,carrier,segments}){
   const doneTimeThereHour = doneTimeThere.getHours();
   const startTimeThereMin =dateStartThere.getMinutes();
   const startTimeThereHour = dateStartThere.getHours();
-  console.log('DATADATADATADATADATADATADATADATA',dateThere)
+  //console.log('DATADATADATADATADATADATADATADATA',dateThere)
 
   const getTimeFromMins = (mins)=> {
    const hours = Math.trunc(mins/60);
@@ -50,7 +50,7 @@ export default function Card({price,carrier,segments}){
   const doneTimeBackHour = doneTimeBack.getHours();
   const startTimeBackMin =dateStartBack.getMinutes();
   const startTimeBackHour = dateStartBack.getHours();
-console.log(there,back,'there back');
+//console.log(there,back,'there back');
 
    return (
       <div className={classes.Card}>

@@ -1,10 +1,11 @@
 import React from "react";
 import Card from "../Card/Card";
 import classes from "./Tickets.module.scss"
+import { Spin } from "antd";
 
-export default function Tickets({data}){
+export default function Tickets({data,stop}){
 
-   const arr = Object.assign([], data.tickets);
+   const arr = Object.assign([], data);
    //console.log(arr,'data.ticketsdata.ticketsdata.ticketsdata.ticketsdata.ticketsdata.ticketsdata.tickets')
 
 const innerContent = arr.map((ticket)=>{
@@ -12,7 +13,7 @@ const innerContent = arr.map((ticket)=>{
 ///console.log(ticket,'dataOfTicketdataOfTicketdataOfTicketdataOfTicketdataOfTicketdataOfTicket')
  //  const dataOfTicket = ticket;
    //console.log(dataOfTicket,'dataOfTicket')
-   console.log('TIKTIKTIKTIKTIKTIKTIKTIKTIKTIKTIKTIK',ticket)
+   //console.log('TIKTIKTIKTIKTIKTIKTIKTIKTIKTIKTIKTIK',ticket)
    return(
       <Card {...ticket}/>
    )
@@ -20,9 +21,11 @@ const innerContent = arr.map((ticket)=>{
 
 //console.log("TICKETSTICKETSTICKETSTICKETSTICKETSTICKETSTICKETSTICKETSTICKETSTICKETSTICKETSTICKETS",data.tickets)
 
+console.log(stop, 'STOP IN TICKETS')
    return (
       <div>
-      {innerContent}
+         {stop?
+      innerContent: <Spin/>}
        
       </div>
    )
