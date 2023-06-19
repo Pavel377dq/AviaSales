@@ -1,7 +1,6 @@
 /* eslint-disable no-shadow */
 /* eslint-disable react/jsx-props-no-spreading */
 import React, {useState,useEffect} from 'react';
-import { Spin } from 'antd';
 import { useSelector, useDispatch } from 'react-redux';
 import LoadingBar from 'react-top-loading-bar';
 
@@ -11,7 +10,7 @@ import { showMoreTickets } from '../../actions';
 import classes from './Tickets.module.scss';
 
 
-export default function Tickets({data,stop}){
+export default function Tickets({data}){
    const dispatch = useDispatch();
    const filters =  useSelector((state) => 
       // console.log(state.checkboxes.arr,'useSelector state');
@@ -90,8 +89,8 @@ const innerContent = sortTickets.map((ticket)=>{
 
    return (
       <div>
-         {stop?
-      showTicketsList(sortTickets, amount) : <Spin/>}
+         
+      {showTicketsList(sortTickets, amount)}
        <button className={classes['open-button'] } type="button" onClick={()=>dispatch(showMoreTickets())}>Показать ещё 5 билетов</button>
        <LoadingBar color="#2196F3" height={5} progress={progress} onLoaderFinished={() => setProgress(0)} />
       </div>
