@@ -1,5 +1,6 @@
+/* eslint-disable import/prefer-default-export */
 /* eslint-disable default-case */
-/*const reducerSort = (state = 'nothing', action) => {
+/* const reducerSort = (state = 'nothing', action) => {
 
 
 
@@ -16,12 +17,14 @@
       case 'transferThree':
          return
    }
-}*/
+} */
 
 
-import { combineReducers } from 'redux'
-import { reducerCheckboxes } from './reducerCheckboxes'
-import { reducerData } from './reducerData'
+import { combineReducers } from 'redux';
+
+import { reducerCheckboxes } from './reducerCheckboxes';
+import { reducerData } from './reducerData';
+import { sortReducer} from './sortReducer';
 
 
-export const reducer =  combineReducers({checkboxes:reducerCheckboxes, tickets: reducerData});
+export const reducer =  combineReducers({checkboxes:reducerCheckboxes, tickets: reducerData,sort: sortReducer});

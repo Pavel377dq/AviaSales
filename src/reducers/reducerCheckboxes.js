@@ -1,35 +1,31 @@
+/* eslint-disable default-param-last */
 
 
-export const  reducerCheckboxes = (state =  {arr:[
-   {checkBox:'all', isChecked: false},{checkBox:'NoTransfer', isChecked: false},
-   {checkBox:'TransferOne', isChecked: false},
-   {checkBox:'TransferTwo', isChecked: false},
-   {checkBox:'TransferThree', isChecked: false}]}, action) =>{
-      console.log('ok')
+// eslint-disable-next-line import/prefer-default-export
+export const  reducerCheckboxes = (state = {arr:[
+   {checkBox:'all', isChecked: true},{checkBox:'NoTransfer', isChecked: true, id: 0},
+   {checkBox:'TransferOne', isChecked: true, id: 1},
+   {checkBox:'TransferTwo', isChecked: true, id: 2},
+   {checkBox:'TransferThree', isChecked: true, id: 3}]}, action) =>{
+     // console.log('ok')
    
-   //reducer должен вернуть новый стейт?
+  
       switch(action.type){
    
          case 'markAllOn': {
-            console.log('1')
-               const newStateArr = state.arr.map((checkbox)=>{
-   
-                  return {
+         //   console.log('1')
+               const newStateArr = state.arr.map((checkbox)=>({
                      ...checkbox,
                      isChecked: true
-                  }
-               });
+                  }));
                return {arr:newStateArr};
          }
          case 'markAllOff':{
-            console.log('2')
-            const newStateArr = state.arr.map((checkbox)=>{
-   
-               return {
+           // console.log('2')
+            const newStateArr = state.arr.map((checkbox)=>({
                   ...checkbox,
                   isChecked: false
-               }
-            });
+               }));
             return {arr:newStateArr};
             
          }
@@ -40,11 +36,11 @@ export const  reducerCheckboxes = (state =  {arr:[
             newStateArr[1].isChecked = true;
            
    
-            let isAllOn = newStateArr.every((checkBox,idx)=>{ if(idx===0){
+            const isAllOn = newStateArr.every((checkBox,idx)=>{ if(idx===0){
                return true;
             }
             return checkBox.isChecked;
-         })
+         });
    
    
             newStateArr[0].isChecked = isAllOn;
@@ -69,11 +65,11 @@ export const  reducerCheckboxes = (state =  {arr:[
             newStateArr[2].isChecked = true;
            
    
-            let isAllOn = newStateArr.every((checkBox,idx)=>{ if(idx===0){
+            const isAllOn = newStateArr.every((checkBox,idx)=>{ if(idx===0){
                return true;
             }
             return checkBox.isChecked;
-         })
+         });
    
    
             newStateArr[0].isChecked = isAllOn;
@@ -95,11 +91,11 @@ export const  reducerCheckboxes = (state =  {arr:[
             newStateArr[3].isChecked = true;
            
    
-            let isAllOn = newStateArr.every((checkBox,idx)=>{ if(idx===0){
+            const isAllOn = newStateArr.every((checkBox,idx)=>{ if(idx===0){
                return true;
             }
             return checkBox.isChecked;
-         })
+         });
    
    
             newStateArr[0].isChecked = isAllOn;
@@ -122,11 +118,11 @@ export const  reducerCheckboxes = (state =  {arr:[
             newStateArr[4].isChecked = true;
            
    
-            let isAllOn = newStateArr.every((checkBox,idx)=>{ if(idx===0){
+            const isAllOn = newStateArr.every((checkBox,idx)=>{ if(idx===0){
                return true;
             }
             return checkBox.isChecked;
-         })
+         });
    
    
             newStateArr[0].isChecked = isAllOn;
@@ -144,12 +140,12 @@ export const  reducerCheckboxes = (state =  {arr:[
    
          }
          default: {
-            console.log('default');
+         
             return {
               ...state
-            }
+            };
          }
       }
-   }
+   };
    
    

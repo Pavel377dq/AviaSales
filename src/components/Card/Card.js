@@ -1,7 +1,7 @@
-import React from "react"
-import classes from "./Card.module.scss"
-import add from "date-fns/add";
-import logo from './S7Logo.svg'
+import React from 'react';
+import add from 'date-fns/add';
+
+import classes from './Card.module.scss';
 
 export default function Card({price,carrier,segments}){
 
@@ -16,18 +16,18 @@ export default function Card({price,carrier,segments}){
    hours:Math.trunc(durationThere/60),
    minutes:durationThere % 60,
    seconds:0
-  })
+  });
 
   const doneTimeThereMin = doneTimeThere.getMinutes();
   const doneTimeThereHour = doneTimeThere.getHours();
   const startTimeThereMin =dateStartThere.getMinutes();
   const startTimeThereHour = dateStartThere.getHours();
-  //console.log('DATADATADATADATADATADATADATADATA',dateThere)
+  // console.log('DATADATADATADATADATADATADATADATA',dateThere)
 
   const getTimeFromMins = (mins)=> {
    const hours = Math.trunc(mins/60);
    const minutes = mins % 60;
-   return hours + 'ч ' + minutes + 'м';
+   return `${hours  }ч ${  minutes  }м`;
 };
 
   const back = segments[1];
@@ -44,24 +44,25 @@ export default function Card({price,carrier,segments}){
    hours:Math.trunc(durationBack/60),
    minutes:durationBack % 60,
    seconds:0
-  })
+  });
 
   const doneTimeBackMin = doneTimeBack.getMinutes();
   const doneTimeBackHour = doneTimeBack.getHours();
   const startTimeBackMin =dateStartBack.getMinutes();
   const startTimeBackHour = dateStartBack.getHours();
-//console.log(there,back,'there back');
+// console.log(there,back,'there back');
 
    return (
       <div className={classes.Card}>
+      
          <header className={classes['header-Card']}>
             <bold className={classes['Card-price']}>{price}</bold>
-            <img className={classes['Card-logo']} src={`//pics.avs.io/99/36/${carrier}.png`}/>
+            <img className={classes['Card-logo']} alt='logo' src={`//pics.avs.io/99/36/${carrier}.png`}/>
          </header>
          <div className={classes['inner-card-wrap']}>
             <div className={classes['Card-wrap']} >
                <div className={classes['Card-wrap-header']}>{originThere} - {destinationThere}</div>
-               <div className={classes['Card-wrap-bottom']}> {startTimeThereHour+':'+startTimeThereMin+' - '+ doneTimeThereHour + ':' + doneTimeThereMin}</div>
+               <div className={classes['Card-wrap-bottom']}> {`${startTimeThereHour}:${startTimeThereMin} - ${ doneTimeThereHour  }:${  doneTimeThereMin}`}</div>
             </div>
             <div className={classes['Card-wrap']}>
                <div className={classes['Card-wrap-header']}>В пути</div>
@@ -76,7 +77,7 @@ export default function Card({price,carrier,segments}){
          <div className={classes['inner-card-wrap']}>
             <div className={classes['Card-wrap']} >
                <div className={classes['Card-wrap-header']}>{originBack} - {destinationBack}</div>
-               <div className={classes['Card-wrap-bottom']}> {startTimeBackHour+':'+startTimeBackMin+' - '+ doneTimeBackHour + ':' + doneTimeBackMin}</div>
+               <div className={classes['Card-wrap-bottom']}> {`${startTimeBackHour}:${startTimeBackMin} - ${ doneTimeBackHour  }:${  doneTimeBackMin}`}</div>
             </div>
             <div className={classes['Card-wrap']}>
                <div className={classes['Card-wrap-header']}>В пути</div>
@@ -89,5 +90,5 @@ export default function Card({price,carrier,segments}){
          </div>
 
       </div>
-   )
+   );
 }

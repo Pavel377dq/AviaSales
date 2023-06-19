@@ -1,3 +1,8 @@
+/* eslint-disable no-console */
+/* eslint-disable consistent-return */
+/* eslint-disable no-await-in-loop */
+import axios from 'axios';
+
 export const doAllOn = () => ( {type: 'markAllOn'});
 
 export const doAllOff = () => ( {type: 'markAllOff'});
@@ -18,40 +23,61 @@ export const doTransferThreeOff = () => ({ type: 'markTransferThreeOff'});
 
 export const doTransferThreeOn = () => ({type: 'markTransferThreeOn'});
 
-export const initData = (data,isStop) => ({type: 'initData', data: data, stop:isStop})
+export const initData = (data,isStop) => ({type: 'initData', data, stop:isStop});
 
-export const loadData =  () => {
-   return async (dispatch)=>{
-     try{
-      const searchObj = await fetch('https://aviasales-test-api.kata.academy/search');
-      
-      
-      const searchIdWrap = searchObj.json();
-      console.log('searchIdWrap',searchIdWrap)
-      const searchId = await searchIdWrap.then(res=>res.searchId);
-      console.log('searchId',searchId)
-      const dataRes = await fetch(`https://aviasales-test-api.kata.academy/tickets?searchId=${searchId}`);
+export const changeSortTag = (name) => ({ type: 'CHANGE_SORT_TAG', name });
 
-      const data = dataRes.json();
-      console.log('dataRes.json()',data);
-      const stop = await data.then(res=> res.stop);
-      if(!stop){
-      const tickets = await data.then(res=> res.tickets);
-      //console.log('DATADATADATADATADATADATADATADATADATADATA',tickets)
-      dispatch(initData(tickets,stop));
+export const showMoreTickets = () => ({ type: 'INC_VISIBLE_TICKETS_AMOUNT' });
+
+export const loadData =   () => async (dispatch)=>{
+
+
+      try{
+
+         const {data} = await axios.get('https://aviasales-test-api.kata.academy/search');
+     
+         const {searchId}  = data;
+   
+         let flag = false;
+      // const searchIdObj = getId();
+
+      // console.log('search     ID',searchId )
+
+      while (!flag) {
+         // const {tickets,dataLoadStop } = await getTickets(searchId);
+   
+        // console.log('searchId searchId searchId searchId',searchId)
+         const {data: dataOfTickets} = await axios.get(`https://aviasales-test-api.kata.academy/tickets?searchId=${searchId}`).catch((error) => {
+            if (error.response.status === 500) {
+              return error.response;
+            }});
+            
+        
+   
+         const { tickets} = dataOfTickets;
+         const {stop:dataLoadStop } = dataOfTickets;
+           // console.log(tickets,'tickets!!!!!!!!!!!!!!!',dataOfTickets,'dataOfTickets!!!!!!!!!!!!!!')
+         if(tickets !== undefined){
+         if (tickets.length && !dataLoadStop) {
+           // console.log(dispatch,'searchId',searchId,'searchId')
+           dispatch(initData(tickets,dataLoadStop));
+           flag = dataLoadStop;
+         } else {
+           flag = true;
+           dispatch(initData([],false));
+           // alert('STOP TRUE')
+         }
       }
       else{
-         console.log('STOP',stop);
-         dispatch(initData([],stop));
+         dispatch(initData([],false));
       }
+       }
    }
       catch(e){
-         console.log(e,'Error');
-         dispatch(initData([]));
-      }
+         console.log(e);
    
-   }
-}
+      }
+   };
 
 
 

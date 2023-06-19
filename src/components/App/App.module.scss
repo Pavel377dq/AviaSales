@@ -14,17 +14,12 @@
    margin: 0 auto;
 }
 
-.toggle-button{
-   border: transparent;
-   display: block;
-   width: 502px;
-   height: 50px;
-   color: white;
-   background-color: #2196F3;
-   border-radius: 5px;
-   line-height: 50px;
-   text-align: center;
-   font-size: 12px;
-   font-weight: 600;
-   margin-bottom: 50px;
+@media(max-width: 768px){
+
+   .App-wrap{
+    width: 504px;
+    flex-direction: column;
+    margin: 0 auto;
+   }
+
 }
