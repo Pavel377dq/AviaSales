@@ -1,3 +1,4 @@
+/* eslint-disable import/prefer-default-export */
 import { combineReducers } from 'redux';
 
 import { reducerCheckboxes } from './reducerCheckboxes';
