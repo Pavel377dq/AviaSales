@@ -1,4 +1,6 @@
 {
+  
+
   "env": {
     "browser": true,
     "es2021": true
@@ -9,6 +11,7 @@
     "airbnb/hooks",
     "prettier"
   ],
+  
 
   "plugins": ["eslint-comments"],
   "parser": "@babel/eslint-parser", 
