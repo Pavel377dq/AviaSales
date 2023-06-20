@@ -47,6 +47,8 @@ border-radius: 5px;
    display: inline-flex;
    align-items: center;
    user-select: none;
+   width: 210px;
+   cursor: pointer;
  }
  .custom-checkbox+label::before {
    content: '';

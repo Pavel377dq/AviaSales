@@ -1,6 +1,6 @@
 /* eslint-disable no-shadow */
 /* eslint-disable react/jsx-props-no-spreading */
-import React, { useState, useEffect } from 'react';
+import react from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import LoadingBar from 'react-top-loading-bar';
 
@@ -9,6 +9,7 @@ import { showMoreTickets } from '../../actions';
 
 import classes from './Tickets.module.scss';
 
+let i=0;
 export default function Tickets({ data }) {
     const dispatch = useDispatch();
     const filters = useSelector((state) => state.checkboxes.arr);
@@ -16,9 +17,9 @@ export default function Tickets({ data }) {
     const sortTag = useSelector((state) => state.sort.sortTag);
     const amount = useSelector((state) => state.tickets.amount);
 
-    const [progress, setProgress] = useState(0);
+    const [progress, setProgress] = react.useState(0);
 
-    useEffect(() => {
+    react.useEffect(() => {
         setProgress(data.length / 95.55);
     }, [data]);
 
@@ -52,8 +53,9 @@ export default function Tickets({ data }) {
 
     const showTicketsList = (sortTickets, amount) => {
         const portion = sortTickets.slice(0, amount);
+        i+=1;
         return portion.map((ticket) => {
-            const key = `${ticket.price}${ticket.carrier}${ticket.segments[0].date}${ticket.segments[1].date}`;
+            const key = `${ticket.price}${ticket.carrier}${ticket.segments[0].date}${ticket.segments[1].date}aaaa${i}`;
             return <Card {...ticket} key={key} />;
         });
     };
