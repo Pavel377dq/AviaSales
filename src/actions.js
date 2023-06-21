@@ -1,8 +1,6 @@
-/* eslint-disable spaced-comment */
 /* eslint-disable no-console */
-/* eslint-disable consistent-return */
-/* eslint-disable no-await-in-loop */
-import axios from 'axios';
+
+import api from './Api/Api';
 
 export const doAllOn = () => ({ type: 'markAllOn' });
 
@@ -31,44 +29,18 @@ export const changeSortTag = (name) => ({ type: 'CHANGE_SORT_TAG', name });
 export const showMoreTickets = () => ({ type: 'INC_VISIBLE_TICKETS_AMOUNT' });
 
 export const loadData = () => async (dispatch) => {
+    if (api.searchId === '') {
+        await api.getId();
+    }
+
     try {
-        const { data } = await axios.get('https://aviasales-test-api.kata.academy/search');
+        const { tickets, dataLoadStop } = await api.getTickets();
 
-        const { searchId } = data;
-
-        let flag = false;
-
-        while (!flag) {
-            const { data: dataOfTickets } = await axios
-                .get(`https://aviasales-test-api.kata.academy/tickets?searchId=${searchId}`)
-                .catch((error) => {
-
-                    if(error.message !== 'Network Error'){
-                        console.log(error.message);
-                        return error.message;
-                    }
-                        
-                    throw Error('Network Error');   
-                });
-
-            if (dataOfTickets !== undefined) {
-                
-            const { tickets } = dataOfTickets;
-            const { stop: dataLoadStop } = dataOfTickets;
-
-           
-                if (tickets.length && !dataLoadStop) {
-                    dispatch(initData(tickets, dataLoadStop));
-                    flag = dataLoadStop;
-                } else {
-                    flag = true;
-                    dispatch(initData([], false));
-                }
-            }// else {
-               // dispatch(initData([], false));
-            //}
+        if (tickets.length && !dataLoadStop) {
+            dispatch(initData(tickets));
         }
-    } catch (e) {
-        console.log('In catch block handler',e);
+    } catch (error) {
+        console.log('In error handler ', error.message);
+        dispatch(initData([]));
     }
 };

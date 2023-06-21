@@ -2,7 +2,6 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
-/* eslint-disable react-hooks/exhaustive-deps */
 import React from 'react';
 import { connect } from 'react-redux';
 
@@ -37,10 +36,7 @@ function Filters({
     return (
         <aside className={classes.filters}>
             <div className={classes['filters-header']}>Количество пересадок</div>
-            <div 
-               
-                className={classes.filter}
-            >
+            <div className={classes.filter}>
                 <div className={classes['checkbox-wrap']}>
                     <input
                         type="checkbox"
@@ -50,14 +46,16 @@ function Filters({
                         name="happy"
                         value="yes"
                     />
-                    <label  onKeyDown={arr[0].isChecked ? doAllOff : doAllOn}
-                onClick={arr[0].isChecked ? doAllOff : doAllOn} htmlFor="1" >Все</label>
+                    <label
+                        onKeyDown={arr[0].isChecked ? doAllOff : doAllOn}
+                        onClick={arr[0].isChecked ? doAllOff : doAllOn}
+                        htmlFor="1"
+                    >
+                        Все
+                    </label>
                 </div>
-                
             </div>
-            <div
-                className={classes.filter}
-            >
+            <div className={classes.filter}>
                 <div className={classes['checkbox-wrap']}>
                     <input
                         type="checkbox"
@@ -67,13 +65,16 @@ function Filters({
                         name="happy"
                         value="yes"
                     />
-                    <label htmlFor="2"  onKeyDown={!arr[1].isChecked ? doNoTransferOn : doNoTransferOff}
-                onClick={!arr[1].isChecked ? doNoTransferOn : doNoTransferOff}>Без пересадок</label>
+                    <label
+                        htmlFor="2"
+                        onKeyDown={!arr[1].isChecked ? doNoTransferOn : doNoTransferOff}
+                        onClick={!arr[1].isChecked ? doNoTransferOn : doNoTransferOff}
+                    >
+                        Без пересадок
+                    </label>
                 </div>
             </div>
-            <div
-                className={classes.filter}
-            >
+            <div className={classes.filter}>
                 <div className={classes['checkbox-wrap']}>
                     <input
                         type="checkbox"
@@ -83,15 +84,17 @@ function Filters({
                         name="happy"
                         value="yes"
                     />
-                    <label htmlFor="3" onKeyDown={!arr[2].isChecked ? doOneTransferOn : doOneTransferOff}
-                onClick={!arr[2].isChecked ? doOneTransferOn : doOneTransferOff}> 1 пересадка</label>
+                    <label
+                        htmlFor="3"
+                        onKeyDown={!arr[2].isChecked ? doOneTransferOn : doOneTransferOff}
+                        onClick={!arr[2].isChecked ? doOneTransferOn : doOneTransferOff}
+                    >
+                        {' '}
+                        1 пересадка
+                    </label>
                 </div>
-               
             </div>
-            <div
-               
-                className={classes.filter}
-           >
+            <div className={classes.filter}>
                 <div className={classes['checkbox-wrap']}>
                     <input
                         type="checkbox"
@@ -101,14 +104,16 @@ function Filters({
                         name="happy"
                         value="yes"
                     />
-                    <label htmlFor="4"  onKeyDown={!arr[3].isChecked ? doTransferTwoOn : doTransferTwoOff}
-                onClick={!arr[3].isChecked ? doTransferTwoOn : doTransferTwoOff}>2 пересадки</label>
+                    <label
+                        htmlFor="4"
+                        onKeyDown={!arr[3].isChecked ? doTransferTwoOn : doTransferTwoOff}
+                        onClick={!arr[3].isChecked ? doTransferTwoOn : doTransferTwoOff}
+                    >
+                        2 пересадки
+                    </label>
                 </div>
-             
             </div>
-            <div   className={classes.filter}
-               
-            >
+            <div className={classes.filter}>
                 <div className={classes['checkbox-wrap']}>
                     {' '}
                     <input
@@ -119,15 +124,20 @@ function Filters({
                         name="happy"
                         value="yes"
                     />
-                    <label htmlFor="5"  onKeyDown={!arr[4].isChecked ? doTransferThreeOn : doTransferThreeOff}
-              
-              onClick={!arr[4].isChecked ? doTransferThreeOn : doTransferThreeOff}> 3 пересадки</label>
+                    <label
+                        htmlFor="5"
+                        onKeyDown={!arr[4].isChecked ? doTransferThreeOn : doTransferThreeOff}
+                        onClick={!arr[4].isChecked ? doTransferThreeOn : doTransferThreeOff}
+                    >
+                        {' '}
+                        3 пересадки
+                    </label>
                 </div>
             </div>
         </aside>
     );
 }
-// <div>{JSON.stringify(state.data)}</div>
+
 const mapStateToProps = (state) => ({ state });
 
 export default connect(mapStateToProps, actions)(Filters);

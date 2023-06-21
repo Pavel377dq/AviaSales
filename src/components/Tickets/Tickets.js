@@ -1,46 +1,39 @@
-/* eslint-disable spaced-comment */
-/* eslint-disable import/no-extraneous-dependencies */
-/* eslint-disable no-shadow */
-/* eslint-disable react/jsx-props-no-spreading */
-import react from 'react';
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useSelector, useDispatch } from 'react-redux';
 import LoadingBar from 'react-top-loading-bar';
-//import lodash from 'lodash';
+import react, { useEffect } from 'react';
 
 import Card from '../Card/Card';
-import { showMoreTickets } from '../../actions';
+import { loadData, showMoreTickets } from '../../actions';
 
 import classes from './Tickets.module.scss';
 
-let i=0;
-export default function Tickets({ data }) {
+export default function Tickets() {
     const dispatch = useDispatch();
     const filters = useSelector((state) => state.checkboxes.arr);
 
     const sortTag = useSelector((state) => state.sort.sortTag);
     const amount = useSelector((state) => state.tickets.amount);
+    const tickets = useSelector((state) => state.tickets.tickets);
 
     const [progress, setProgress] = react.useState(0);
 
-    react.useEffect(() => {
-        setProgress(data.length / 95.55);
-    }, [data]);
-
-    const tickets = Object.assign([], data);
+    useEffect(() => {
+        dispatch(loadData());
+        setProgress(tickets.length / 95.55);
+    }, [tickets]);
 
     const filterTickets = () => {
         const CheckedFilters = filters.filter((item) => item.isChecked);
         const filteredTickets = [];
-       // let prevSet = [];
-       
+
         for (let i = 0; i < CheckedFilters.length; i += 1) {
             const notChecked = tickets.filter((ticket) => ticket.segments[0].stops.length === CheckedFilters[i].id);
-           
+
             filteredTickets.push(...notChecked);
-          
         }
 
-        return  filteredTickets;
+        return filteredTickets;
     };
 
     let sortTickets;
@@ -59,12 +52,11 @@ export default function Tickets({ data }) {
         sortTickets = filterTickets();
     }
 
-    const showTicketsList = (sortTickets, amount) => {
-        const portion = sortTickets.slice(0, amount);
-        i+=1;
+    const showTicketsList = (ticketsToPortion, limit) => {
+        const portion = ticketsToPortion.slice(0, limit);
         return portion.map((ticket) => {
-            const key = `${ticket.price}${ticket.carrier}${ticket.segments[0].date}${ticket.segments[1].date}aaaa${i}`;
-            return <Card {...ticket} key={key} />;
+            const key = `${ticket.price}${ticket.carrier}${ticket.segments[0].date}${ticket.segments[1].date}`;
+            return <Card ticketProps={ticket} key={key} />;
         });
     };
 
@@ -72,10 +64,12 @@ export default function Tickets({ data }) {
     const CheckedFilters = filters.filter((item) => item.isChecked);
     return (
         <div>
-            {CheckedFilters.length? ticketsToShow: <div>Рейсов, подходящих под заданные фильтры, не найдено</div> }
-            {ticketsToShow.length?<button className={classes['open-button']} type="button" onClick={() => dispatch(showMoreTickets())}>
-                Показать ещё 5 билетов
-            </button>: null}
+            {CheckedFilters.length ? ticketsToShow : <div>Рейсов, подходящих под заданные фильтры, не найдено</div>}
+            {ticketsToShow.length ? (
+                <button className={classes['open-button']} type="button" onClick={() => dispatch(showMoreTickets())}>
+                    Показать ещё 5 билетов
+                </button>
+            ) : null}
             <LoadingBar color="#2196F3" height={5} progress={progress} onLoaderFinished={() => setProgress(0)} />
         </div>
     );
