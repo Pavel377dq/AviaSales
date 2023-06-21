@@ -1,3 +1,4 @@
+/* eslint-disable spaced-comment */
 /* eslint-disable no-console */
 /* eslint-disable consistent-return */
 /* eslint-disable no-await-in-loop */
@@ -41,15 +42,21 @@ export const loadData = () => async (dispatch) => {
             const { data: dataOfTickets } = await axios
                 .get(`https://aviasales-test-api.kata.academy/tickets?searchId=${searchId}`)
                 .catch((error) => {
-                    if (error.response.status === 500) {
-                        return error.response;
+
+                    if(error.message !== 'Network Error'){
+                        console.log(error.message);
+                        return error.message;
                     }
+                        
+                    throw Error('Network Error');   
                 });
 
+            if (dataOfTickets !== undefined) {
+                
             const { tickets } = dataOfTickets;
             const { stop: dataLoadStop } = dataOfTickets;
 
-            if (tickets !== undefined) {
+           
                 if (tickets.length && !dataLoadStop) {
                     dispatch(initData(tickets, dataLoadStop));
                     flag = dataLoadStop;
@@ -57,11 +64,11 @@ export const loadData = () => async (dispatch) => {
                     flag = true;
                     dispatch(initData([], false));
                 }
-            } else {
-                dispatch(initData([], false));
-            }
+            }// else {
+               // dispatch(initData([], false));
+            //}
         }
     } catch (e) {
-        console.log(e);
+        console.log('In catch block handler',e);
     }
 };

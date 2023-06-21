@@ -1,8 +1,11 @@
+/* eslint-disable spaced-comment */
+/* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable no-shadow */
 /* eslint-disable react/jsx-props-no-spreading */
 import react from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import LoadingBar from 'react-top-loading-bar';
+//import lodash from 'lodash';
 
 import Card from '../Card/Card';
 import { showMoreTickets } from '../../actions';
@@ -26,13 +29,18 @@ export default function Tickets({ data }) {
     const tickets = Object.assign([], data);
 
     const filterTickets = () => {
-        const checkedFilters = filters.filter((item) => item.isChecked);
+        const CheckedFilters = filters.filter((item) => item.isChecked);
         const filteredTickets = [];
-        for (let i = 0; i < checkedFilters.length; i += 1) {
-            const arr = tickets.filter((ticket) => ticket.segments[0].stops.length === checkedFilters[i].id);
-            filteredTickets.push(...arr);
+       // let prevSet = [];
+       
+        for (let i = 0; i < CheckedFilters.length; i += 1) {
+            const notChecked = tickets.filter((ticket) => ticket.segments[0].stops.length === CheckedFilters[i].id);
+           
+            filteredTickets.push(...notChecked);
+          
         }
-        return filteredTickets;
+
+        return  filteredTickets;
     };
 
     let sortTickets;
@@ -60,12 +68,14 @@ export default function Tickets({ data }) {
         });
     };
 
+    const ticketsToShow = showTicketsList(sortTickets, amount);
+    const CheckedFilters = filters.filter((item) => item.isChecked);
     return (
         <div>
-            {showTicketsList(sortTickets, amount)}
-            <button className={classes['open-button']} type="button" onClick={() => dispatch(showMoreTickets())}>
+            {CheckedFilters.length? ticketsToShow: <div>Рейсов, подходящих под заданные фильтры, не найдено</div> }
+            {ticketsToShow.length?<button className={classes['open-button']} type="button" onClick={() => dispatch(showMoreTickets())}>
                 Показать ещё 5 билетов
-            </button>
+            </button>: null}
             <LoadingBar color="#2196F3" height={5} progress={progress} onLoaderFinished={() => setProgress(0)} />
         </div>
     );

@@ -4,11 +4,11 @@
 export const reducerCheckboxes = (
     state = {
         arr: [
-            { checkBox: 'all', isChecked: true },
+            { checkBox: 'all', isChecked: false },
             { checkBox: 'NoTransfer', isChecked: true, id: 0 },
-            { checkBox: 'TransferOne', isChecked: true, id: 1 },
-            { checkBox: 'TransferTwo', isChecked: true, id: 2 },
-            { checkBox: 'TransferThree', isChecked: true, id: 3 },
+            { checkBox: 'TransferOne', isChecked: false, id: 1 },
+            { checkBox: 'TransferTwo', isChecked: false, id: 2 },
+            { checkBox: 'TransferThree', isChecked: false, id: 3 },
         ],
     },
     action

@@ -1,7 +1,7 @@
 /* eslint-disable default-param-last */
 /* eslint-disable import/prefer-default-export */
 const initialState = {
-    sortTag: 'fastest',
+    sortTag: 'non',
 };
 
 export const sortReducer = (state = initialState, action) => {

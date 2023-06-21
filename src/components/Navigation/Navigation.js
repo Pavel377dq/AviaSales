@@ -18,15 +18,15 @@ export default function Navigation() {
         <nav>
             <div className={classes.sort} onChange={onSortTagChange}>
                 <label className={sortTag === 'cheapest' ? classes.checked : null}>
-                    <input type="radio" value="cheapest" name="tickets" />
+                    <input type="checkbox" value="cheapest" name="tickets" />
                     <span>САМЫЙ ДЕШЕВЫЙ</span>
                 </label>
                 <label className={sortTag === 'fastest' ? classes.checked : null}>
-                    <input type="radio" value="fastest" name="tickets" />
+                    <input type="checkbox" value="fastest" name="tickets" />
                     <span>САМЫЙ БЫСТРЫЙ</span>
                 </label>
                 <label className={sortTag === 'optimal' ? classes.checked : null}>
-                    <input type="radio" value="optimal" name="tickets" />
+                    <input type="checkbox" value="optimal" name="tickets" />
                     <span>ОПТИМАЛЬНЫЙ</span>
                 </label>
             </div>
