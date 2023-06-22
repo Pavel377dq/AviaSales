@@ -42,29 +42,6 @@ export default function Card({ ticketProps }) {
         return `${hours}ч ${minutes}м`;
     };
 
-    // const back = segments[1];
-
-    /* const {
-        date: dateBack,
-        duration: durationBack,
-    } = back;
-
-    const dateStartBack = new Date(dateBack);
-    const doneTimeBack = add(dateStartBack, {
-        years: 0,
-        months: 0,
-        weeks: 0,
-        days: 0,
-        hours: Math.trunc(durationBack / 60),
-        minutes: durationBack % 60,
-        seconds: 0,
-    });
-
-    const doneTimeBackMin = doneTimeBack.getMinutes();
-    const doneTimeBackHour = doneTimeBack.getHours();
-    const startTimeBackMin = dateStartBack.getMinutes();
-    const startTimeBackHour = dateStartBack.getHours();
-*/
     return (
         <div className={classes.Card}>
             <header className={classes['header-Card']}>

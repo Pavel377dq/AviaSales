@@ -1,15 +1,15 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
-
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { changeSortTag } from '../../actions';
+import * as selectors from '../../redux/selectors';
+import { changeSortTag } from '../../redux/actions';
 
 import classes from './Navigation.module.scss';
 
 export default function Navigation() {
     const dispatch = useDispatch();
-    const sortTag = useSelector((state) => state.sort.sortTag);
+    const sortTag = useSelector(selectors.sortTag);
 
     const onSortTagChange = (event) => {
         dispatch(changeSortTag(event.target.value));

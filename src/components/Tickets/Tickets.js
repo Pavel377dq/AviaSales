@@ -1,20 +1,22 @@
 /* eslint-disable react-hooks/exhaustive-deps */
+
 import { useSelector, useDispatch } from 'react-redux';
 import LoadingBar from 'react-top-loading-bar';
 import react, { useEffect } from 'react';
 
 import Card from '../Card/Card';
-import { loadData, showMoreTickets } from '../../actions';
+import { loadData, showMoreTickets } from '../../redux/actions';
+import * as selectors from '../../redux/selectors';
 
 import classes from './Tickets.module.scss';
 
 export default function Tickets() {
     const dispatch = useDispatch();
-    const filters = useSelector((state) => state.checkboxes.arr);
+    const filters = useSelector(selectors.filters);
 
-    const sortTag = useSelector((state) => state.sort.sortTag);
-    const amount = useSelector((state) => state.tickets.amount);
-    const tickets = useSelector((state) => state.tickets.tickets);
+    const sortTag = useSelector(selectors.sortTag);
+    const amount = useSelector(selectors.amount);
+    const tickets = useSelector(selectors.tickets);
 
     const [progress, setProgress] = react.useState(0);
 

@@ -1,4 +1,3 @@
-/* eslint-disable import/no-extraneous-dependencies */
 import reduxThunk from 'redux-thunk';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
@@ -7,12 +6,11 @@ import { Provider } from 'react-redux';
 import { createStore, applyMiddleware, compose } from 'redux';
 
 import App from './components/App/App';
-import { reducer } from './reducers/reducer';
+import { reducer } from './redux/reducers/reducer';
 
 const composeEnhancers =
     typeof window === 'object' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
         ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({
-              // Specify extension’s options like name, actionsDenylist, actionsCreators, serialize...
           })
         : compose;
 

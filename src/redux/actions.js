@@ -1,6 +1,4 @@
-/* eslint-disable no-console */
-
-import api from './Api/Api';
+import api from '../Api/Api';
 
 export const initData = (data, isStop) => ({ type: 'initData', data, stop: isStop });
 
@@ -22,7 +20,8 @@ export const loadData = () => async (dispatch) => {
             dispatch(initData(tickets));
         }
     } catch (error) {
-        console.log('In error handler ', error.message);
-        dispatch(initData([]));
+        if(error.message !== 'Network Error'){
+            dispatch(initData([]));
+        }
     }
 };

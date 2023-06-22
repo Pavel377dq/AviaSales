@@ -1,17 +1,17 @@
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
-/* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/label-has-associated-control */
-/* eslint-disable jsx-a11y/no-static-element-interactions */
+
 
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { toggleCheckboxes } from '../../actions';
+import { toggleCheckboxes } from '../../redux/actions';
+import * as selectors from '../../redux/selectors';
 
 import classes from './Filters.module.scss';
 
 export default function Filters() {
-    const checkboxes = useSelector((state) => state.checkboxes);
+    const checkboxes = useSelector(selectors.checkboxes);
     const { arr } = checkboxes;
     const dispatch = useDispatch();
 
@@ -20,7 +20,7 @@ export default function Filters() {
     };
 
     return (
-        <aside onClick={delegationHandler} className={classes.filters}>
+        <aside onClick={delegationHandler} onKeyDown={delegationHandler} className={classes.filters}>
             <div className={classes['filters-header']}>Количество пересадок</div>
             <div className={classes.filter}>
                 <div className={classes['checkbox-wrap']}>

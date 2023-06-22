@@ -1,5 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-
 import Tickets from '../Tickets/Tickets';
 import Navigation from '../Navigation/Navigation';
 import Filters from '../Filters/Filters';
