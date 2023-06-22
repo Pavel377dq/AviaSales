@@ -2,39 +2,25 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
-import React from 'react';
-import { connect } from 'react-redux';
 
-import * as actions from '../../actions';
+import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+
+import { toggleCheckboxes } from '../../actions';
 
 import classes from './Filters.module.scss';
 
-function Filters({
-    state,
-    doAllOn,
-
-    doAllOff,
-
-    doNoTransferOn,
-
-    doNoTransferOff,
-
-    doOneTransferOn,
-
-    doOneTransferOff,
-
-    doTransferTwoOn,
-
-    doTransferTwoOff,
-
-    doTransferThreeOff,
-    doTransferThreeOn,
-}) {
-    const { checkboxes } = state;
+export default function Filters() {
+    const checkboxes = useSelector((state) => state.checkboxes);
     const { arr } = checkboxes;
+    const dispatch = useDispatch();
+
+    const delegationHandler = (e) => {
+        dispatch(toggleCheckboxes(e.target.value));
+    };
 
     return (
-        <aside className={classes.filters}>
+        <aside onClick={delegationHandler} className={classes.filters}>
             <div className={classes['filters-header']}>Количество пересадок</div>
             <div className={classes.filter}>
                 <div className={classes['checkbox-wrap']}>
@@ -44,15 +30,9 @@ function Filters({
                         className={classes['custom-checkbox']}
                         id="1"
                         name="happy"
-                        value="yes"
+                        value="all"
                     />
-                    <label
-                        onKeyDown={arr[0].isChecked ? doAllOff : doAllOn}
-                        onClick={arr[0].isChecked ? doAllOff : doAllOn}
-                        htmlFor="1"
-                    >
-                        Все
-                    </label>
+                    <label htmlFor="1">Все</label>
                 </div>
             </div>
             <div className={classes.filter}>
@@ -63,15 +43,9 @@ function Filters({
                         className={classes['custom-checkbox']}
                         id="2"
                         name="happy"
-                        value="yes"
+                        value="noTransfer"
                     />
-                    <label
-                        htmlFor="2"
-                        onKeyDown={!arr[1].isChecked ? doNoTransferOn : doNoTransferOff}
-                        onClick={!arr[1].isChecked ? doNoTransferOn : doNoTransferOff}
-                    >
-                        Без пересадок
-                    </label>
+                    <label htmlFor="2">Без пересадок</label>
                 </div>
             </div>
             <div className={classes.filter}>
@@ -82,16 +56,9 @@ function Filters({
                         className={classes['custom-checkbox']}
                         id="3"
                         name="happy"
-                        value="yes"
+                        value="oneTransfer"
                     />
-                    <label
-                        htmlFor="3"
-                        onKeyDown={!arr[2].isChecked ? doOneTransferOn : doOneTransferOff}
-                        onClick={!arr[2].isChecked ? doOneTransferOn : doOneTransferOff}
-                    >
-                        {' '}
-                        1 пересадка
-                    </label>
+                    <label htmlFor="3"> 1 пересадка</label>
                 </div>
             </div>
             <div className={classes.filter}>
@@ -102,15 +69,9 @@ function Filters({
                         className={classes['custom-checkbox']}
                         id="4"
                         name="happy"
-                        value="yes"
+                        value="twoTransfers"
                     />
-                    <label
-                        htmlFor="4"
-                        onKeyDown={!arr[3].isChecked ? doTransferTwoOn : doTransferTwoOff}
-                        onClick={!arr[3].isChecked ? doTransferTwoOn : doTransferTwoOff}
-                    >
-                        2 пересадки
-                    </label>
+                    <label htmlFor="4">2 пересадки</label>
                 </div>
             </div>
             <div className={classes.filter}>
@@ -122,22 +83,11 @@ function Filters({
                         className={classes['custom-checkbox']}
                         id="5"
                         name="happy"
-                        value="yes"
+                        value="threeTransfers"
                     />
-                    <label
-                        htmlFor="5"
-                        onKeyDown={!arr[4].isChecked ? doTransferThreeOn : doTransferThreeOff}
-                        onClick={!arr[4].isChecked ? doTransferThreeOn : doTransferThreeOff}
-                    >
-                        {' '}
-                        3 пересадки
-                    </label>
+                    <label htmlFor="5"> 3 пересадки</label>
                 </div>
             </div>
         </aside>
     );
 }
-
-const mapStateToProps = (state) => ({ state });
-
-export default connect(mapStateToProps, actions)(Filters);

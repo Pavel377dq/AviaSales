@@ -5,14 +5,18 @@ import classes from './Card.module.scss';
 
 export default function Card({ ticketProps }) {
     const { price, carrier, segments } = ticketProps;
-    const { origin: originThere, destination: destinationThere, stops: stopsThere, duration: durationThere } = segments[0];
+    const {
+        origin: originThere,
+        destination: destinationThere,
+        stops: stopsThere,
+        duration: durationThere,
+    } = segments[0];
 
     const { origin: originBack, destination: destinationBack, stops: stopsBack, duration: durationBack } = segments[1];
 
     const timePeriod = (segment) => {
         const there = segment;
-        const { date: dateStart, duration: durationFlight
-        } = there;
+        const { date: dateStart, duration: durationFlight } = there;
         const dateStartFormat = new Date(dateStart);
         const doneTime = add(dateStartFormat, {
             years: 0,

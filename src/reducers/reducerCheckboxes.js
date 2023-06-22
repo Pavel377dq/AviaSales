@@ -1,5 +1,9 @@
+/* eslint-disable no-else-return */
+/* eslint-disable no-undef */
+/* eslint-disable import/prefer-default-export */
 /* eslint-disable default-param-last */
-// eslint-disable-next-line import/prefer-default-export
+
+
 export const reducerCheckboxes = (
     state = {
         arr: [
@@ -12,110 +16,52 @@ export const reducerCheckboxes = (
     },
     action
 ) => {
+    const toggle = (stateToChange, index) => {
+        const newStateArr = [...stateToChange.arr];
+        newStateArr[index].isChecked = !newStateArr[index].isChecked; 
+
+        const isAllOn = newStateArr.every((checkBox, idx) => {
+            if (idx === 0) {
+                return true;
+            }
+            return checkBox.isChecked;
+        });
+
+        newStateArr[0].isChecked = isAllOn;
+
+        return { arr: newStateArr };
+    };
+
     switch (action.type) {
-        case 'markAllOn': {
-            const newStateArr = state.arr.map((checkbox) => ({
-                ...checkbox,
-                isChecked: true,
-            }));
-            return { arr: newStateArr };
-        }
-        case 'markAllOff': {
-            const newStateArr = state.arr.map((checkbox) => ({
-                ...checkbox,
-                isChecked: false,
-            }));
-            return { arr: newStateArr };
-        }
-        case 'markNoTransferOn': {
-            const newStateArr = [...state.arr];
-            newStateArr[1].isChecked = true;
-
-            const isAllOn = newStateArr.every((checkBox, idx) => {
-                if (idx === 0) {
-                    return true;
+        case 'TOGGLE_CHECKBOX': {
+            if (action.value === 'all') {
+                let newArr;
+                if (state.arr[0].isChecked) {
+                    newArr = state.arr.map((checkbox) => ({
+                        ...checkbox,
+                        isChecked: false,
+                    }));
+                } else {
+                    newArr = state.arr.map((checkbox) => ({
+                        ...checkbox,
+                        isChecked: true,
+                    }));
                 }
-                return checkBox.isChecked;
-            });
 
-            newStateArr[0].isChecked = isAllOn;
+                return { arr: newArr };
+            } else if (action.value === 'noTransfer') {
+                return toggle(state, 1);
+            } else if (action.value === 'oneTransfer') {
+                return toggle(state, 2);
+            } else if (action.value === 'twoTransfers') {
+                return toggle(state, 3);
+            } else if (action.value === 'threeTransfers') {
+                return toggle(state, 4);
+            }
 
-            return { arr: newStateArr };
-        }
-
-        case 'markNoTransferOff': {
-            const newStateArr = [...state.arr];
-            newStateArr[0].isChecked = state.arr[0].isChecked ? !state.arr[0].isChecked : state.arr[0].isChecked;
-            newStateArr[1].isChecked = false;
-
-            return { arr: newStateArr };
-        }
-
-        case 'markOneTransferOn': {
-            const newStateArr = [...state.arr];
-            newStateArr[2].isChecked = true;
-
-            const isAllOn = newStateArr.every((checkBox, idx) => {
-                if (idx === 0) {
-                    return true;
-                }
-                return checkBox.isChecked;
-            });
-
-            newStateArr[0].isChecked = isAllOn;
-
-            return { arr: newStateArr };
-        }
-        case 'markOneTransferOff': {
-            const newStateArr = [...state.arr];
-            newStateArr[0].isChecked = state.arr[0].isChecked ? !state.arr[0].isChecked : state.arr[0].isChecked;
-            newStateArr[2].isChecked = false;
-
-            return { arr: newStateArr };
-        }
-        case 'markTransferTwoOn': {
-            const newStateArr = [...state.arr];
-            newStateArr[3].isChecked = true;
-
-            const isAllOn = newStateArr.every((checkBox, idx) => {
-                if (idx === 0) {
-                    return true;
-                }
-                return checkBox.isChecked;
-            });
-
-            newStateArr[0].isChecked = isAllOn;
-
-            return { arr: newStateArr };
-        }
-        case 'markTransferTwoOff': {
-            const newStateArr = [...state.arr];
-            newStateArr[0].isChecked = state.arr[0].isChecked ? !state.arr[0].isChecked : state.arr[0].isChecked;
-            newStateArr[3].isChecked = false;
-
-            return { arr: newStateArr };
-        }
-        case 'markTransferThreeOn': {
-            const newStateArr = [...state.arr];
-            newStateArr[4].isChecked = true;
-
-            const isAllOn = newStateArr.every((checkBox, idx) => {
-                if (idx === 0) {
-                    return true;
-                }
-                return checkBox.isChecked;
-            });
-
-            newStateArr[0].isChecked = isAllOn;
-
-            return { arr: newStateArr };
-        }
-        case 'markTransferThreeOff': {
-            const newStateArr = [...state.arr];
-            newStateArr[0].isChecked = state.arr[0].isChecked ? !state.arr[0].isChecked : state.arr[0].isChecked;
-            newStateArr[4].isChecked = false;
-
-            return { arr: newStateArr };
+            return {
+                ...state,
+            };
         }
         default: {
             return {

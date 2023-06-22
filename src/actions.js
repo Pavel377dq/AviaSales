@@ -28,6 +28,8 @@ export const changeSortTag = (name) => ({ type: 'CHANGE_SORT_TAG', name });
 
 export const showMoreTickets = () => ({ type: 'INC_VISIBLE_TICKETS_AMOUNT' });
 
+export const toggleCheckboxes = (value) => ({ type: 'TOGGLE_CHECKBOX', value });
+
 export const loadData = () => async (dispatch) => {
     if (api.searchId === '') {
         await api.getId();
